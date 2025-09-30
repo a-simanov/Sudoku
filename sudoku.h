@@ -2,8 +2,7 @@
 #define SUDOKU_H
 
 #include <QMainWindow>
-#include <iostream>
-#include <QTableView>
+#include <QTableWidget>>
 #include <QStandardItemModel>
 #include <QStandardItem>
 
@@ -38,9 +37,12 @@ private slots:
 
     void on_tableWidget_cellClicked(int row, int column);
 
+    void onCellClicked(int row, int column);
+
 private:
     Ui::Sudoku *ui;
     Field field_{};
     int score_{};
+    QTableWidget* table_;
 };
 #endif // SUDOKU_H
