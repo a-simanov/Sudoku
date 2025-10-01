@@ -2,7 +2,7 @@
 #define SUDOKU_H
 
 #include <QMainWindow>
-#include <QTableWidget>>
+#include <QTableWidget>
 #include <QStandardItemModel>
 #include <QStandardItem>
 
@@ -23,9 +23,6 @@ public:
     ~Sudoku();
     void SetField (int x);
     void CheckField () const;
-    bool CheckScore() const;
-    void SetScore(int s);
-    int GetScore() const;
 private slots:
     void on_pb_set_field_easy_clicked();
 
@@ -33,16 +30,12 @@ private slots:
 
     void on_pb_set_field_hard_clicked();
 
-    void on_tableWidget_cellChanged(int row, int column);
-
-    void on_tableWidget_cellClicked(int row, int column);
-
     void onCellClicked(int row, int column);
 
 private:
+    void ResetField ();
     Ui::Sudoku *ui;
     Field field_{};
-    int score_{};
-    QTableWidget* table_;
+    QTableWidget* table_ = nullptr;
 };
 #endif // SUDOKU_H

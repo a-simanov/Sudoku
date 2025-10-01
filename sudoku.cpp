@@ -2,6 +2,7 @@
 #include "ui_sudoku.h"
 
 #include <QDebug>
+#include <qheaderview.h>
 
 Sudoku::Sudoku(QWidget *parent)
     : QMainWindow(parent)
@@ -17,13 +18,14 @@ Sudoku::~Sudoku()
 
 void Sudoku::SetField (int x) {
     table_ = new QTableWidget(this);
-    table_->setMinimumHeight(500);
-    table_->setMinimumWidth(500);
+    table_->setMinimumHeight(452);
+    table_->setMinimumWidth(452);
     table_->setRowCount(9);
     table_->setColumnCount(9);
     table_->setFont(QFont("Arial", 30));
     table_->verticalHeader()->setVisible(false);
     table_->horizontalHeader()->setVisible(false);
+    ui->verticalLayout->addWidget(table_, 1, Qt::Alignment(Qt::AlignCenter));
     field_.GenerateField(x);
     std::vector<std::vector<int>> vec = field_.GetField();
     if (vec.size() == 0) {
@@ -48,54 +50,32 @@ void Sudoku::SetField (int x) {
     connect(table_, SIGNAL(cellChanged(int, int)), this, SLOT(onCellClicked(int, int)));
 }
 
-
-
-void Sudoku::SetScore(int s) {
-    score_ += s;
-}
-
-int Sudoku::GetScore() const {
-    return score_;
-}
-
-bool Sudoku::CheckScore() const {
-    return GetScore() == 81;
+void Sudoku::ResetField () {
+    if (table_ != nullptr) {
+        table_->clear();
+        delete table_;
+        table_ = nullptr;
+    }
 }
 
 void Sudoku::on_pb_set_field_easy_clicked()
 {
-    try {
-        SetField(81 - 30);
-        SetScore(40);
-    } catch (std::logic_error& e) {
-        table_->clear();
-        field_.ResetField_();
-    }
-
+    ResetField ();
+    SetField(45);
 }
 
 
 void Sudoku::on_pb_set_field_medium_clicked()
 {
-    try {
-        SetField(81 - 25);
-        SetScore(25);
-    } catch (std::logic_error& e) {
-        table_->clear();
-        field_.ResetField_();
-    }
+    ResetField ();
+    SetField(55);
 }
 
 
 void Sudoku::on_pb_set_field_hard_clicked()
 {
-    try {
-        SetField(81 - 20);
-        SetScore(20);
-    } catch (std::logic_error& e) {
-        table_->clear();
-        field_.ResetField_();
-    }
+    ResetField ();
+    SetField(60);
 }
 
 void Sudoku::onCellClicked(int row, int column) {
@@ -106,64 +86,7 @@ void Sudoku::onCellClicked(int row, int column) {
     } else {
         table_->item(row, column)->setBackground(QBrush(""));
     }
-    if (CheckScore()) {
-        for (size_t i = 0; i < 9; ++i) {
-            for (size_t j = 0; j < 9; ++j) {
-                table_->item(i, j)->setBackground(QBrush("green"));
-            }
-        }
-    }
-    if (val) {
-        SetScore(1);
-    } else {
-        SetScore(-1);
-    }
 };
 
-void Sudoku::on_tableWidget_cellChanged(int row, int column)
-{
-    int  val = table_->item(row, column)->text().toInt();
-    field_.SetNum(row, column, val);
-    if (field_.CheckCorrectSquare(row, column, val) || field_.CheckLine(row, column, val)){
-        table_->item(row, column)->setBackground(QBrush("red"));
-    } else {
-        table_->item(row, column)->setBackground(QBrush(""));
-    }
-    if (CheckScore()) {
-        for (size_t i = 0; i < 9; ++i) {
-            for (size_t j = 0; j < 9; ++j) {
-                table_->item(i, j)->setBackground(QBrush("green"));
-            }
-        }
-    }
-    if (val) {
-        SetScore(1);
-    } else {
-        SetScore(-1);
-    }
-}
 
-
-void Sudoku::on_tableWidget_cellClicked(int row, int column)
-{
-    int  val = table_->item(row, column)->text().toInt();
-    field_.SetNum(row, column, val);
-    if (field_.CheckCorrectSquare(row, column, val) || field_.CheckLine(row, column, val)){
-        table_->item(row, column)->setBackground(QBrush("red"));
-    } else {
-        table_->item(row, column)->setBackground(QBrush(""));
-    }
-    if (CheckScore()) {
-        for (size_t i = 0; i < 9; ++i) {
-            for (size_t j = 0; j < 9; ++j) {
-                table_->item(i, j)->setBackground(QBrush("green"));
-            }
-        }
-    }
-    if (val) {
-        SetScore(1);
-    } else {
-        SetScore(-1);
-    }
-}
 

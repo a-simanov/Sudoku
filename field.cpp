@@ -28,7 +28,12 @@ void Field::GenerateField(int x) {
         t--;
     }
     while (x > 0) {
-        field_[dist_pos(gen)][dist_pos(gen)] = 0;
+        int i = dist_pos(gen);
+        int j = dist_pos(gen);
+        if (field_[i][j] == 0) {
+            continue;
+        }
+        field_[i][j] = 0;
         x--;
     }
 }
@@ -169,10 +174,10 @@ bool Field::CheckCorrectSquare(int i, int j, int val) const {
     return false;
 }
 
-void Field::ResetField_() {
-    field_ = std::vector<std::vector<int>>{9, std::vector<int>(9)};
-}
-
 void Field::SetNum (int i, int j, int val) {
     field_[i][j] = val;
 }
+
+std::vector<std::vector<int>> Field::GetField () const {
+    return field_;
+};

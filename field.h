@@ -10,16 +10,14 @@ class Field
 public:
     explicit Field() = default;
     void GenerateField(int x);
-    std::vector<std::vector<int>> GetField () {
-        return field_;
-    };
-    void ResetField_();
+    std::vector<std::vector<int>> GetField () const;
     bool CheckCorrectSquare(int i, int j, int val) const;
     void SetNum (int i, int j, int val);
     bool CheckLine (int i, int j, int val) const;
+
+private:
     void SwapCols (int t);
     void SwapRows (int t);
-private:
     std::vector<std::vector<int>> field_ {9, std::vector<int>(9)};
 };
 
