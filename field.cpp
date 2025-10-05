@@ -4,7 +4,7 @@ void Field::GenerateField(int x) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dist_pos(0,8);
-    std::uniform_int_distribution<> dist_times(8,16);
+    std::uniform_int_distribution<> dist_times(5,8);
     std::uniform_int_distribution<> dist_swap(1,3);
     int k = 1;
     int count = 9;
@@ -21,12 +21,21 @@ void Field::GenerateField(int x) {
         if (count == 6) k = 2;
         if (count == 3) k = 3;
     }
-    int t = dist_times(gen);
-    while (t > 0) {
+
+    int swap_clos_times = dist_times(gen);
+    while (swap_clos_times > 0) {
         SwapCols(dist_swap(gen));
         SwapRows(dist_swap(gen));
-        t--;
+        swap_clos_times--;
     }
+
+    int swap_bloc_times = dist_times(gen);
+    while (swap_bloc_times > 0) {
+        SwapHorizBlocks(dist_swap(gen));
+        SwapVertBlocks(dist_swap(gen));
+        swap_bloc_times--;
+    }
+
     while (x > 0) {
         int i = dist_pos(gen);
         int j = dist_pos(gen);
@@ -66,6 +75,50 @@ void Field::SwapRows (int t) {
     } else if (t == 3) {
         for (size_t i = 0; i < 9; ++i) {
             std::swap(field_[6][i], field_[8][i]);
+        }
+    }
+}
+
+void Field::SwapHorizBlocks (int t) {
+    if (t == 1) {
+        for (size_t i = 0; i < 9; ++i) {
+            std::swap(field_[0][i], field_[6][i]);
+            std::swap(field_[1][i], field_[7][i]);
+            std::swap(field_[2][i], field_[8][i]);
+        }
+    } else if (t == 2) {
+        for (size_t i = 0; i < 9; ++i) {
+            std::swap(field_[0][i], field_[3][i]);
+            std::swap(field_[1][i], field_[4][i]);
+            std::swap(field_[2][i], field_[5][i]);
+        }
+    } else if (t == 3) {
+        for (size_t i = 0; i < 9; ++i) {
+            std::swap(field_[3][i], field_[6][i]);
+            std::swap(field_[4][i], field_[7][i]);
+            std::swap(field_[5][i], field_[8][i]);
+        }
+    }
+}
+
+void Field::SwapVertBlocks (int t) {
+    if (t == 1) {
+        for (size_t i = 0; i < 9; ++i) {
+            std::swap(field_[i][0], field_[i][6]);
+            std::swap(field_[i][1], field_[i][7]);
+            std::swap(field_[i][2], field_[i][8]);
+        }
+    } else if (t == 2) {
+        for (size_t i = 0; i < 9; ++i) {
+            std::swap(field_[i][0], field_[i][3]);
+            std::swap(field_[i][1], field_[i][4]);
+            std::swap(field_[i][2], field_[i][5]);
+        }
+    } else if (t == 3) {
+        for (size_t i = 0; i < 9; ++i) {
+            std::swap(field_[i][3], field_[i][6]);
+            std::swap(field_[i][4], field_[i][7]);
+            std::swap(field_[i][5], field_[i][8]);
         }
     }
 }

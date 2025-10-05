@@ -18,6 +18,8 @@ public:
 private:
     void SwapCols (int t);
     void SwapRows (int t);
+    void SwapVertBlocks (int t);
+    void SwapHorizBlocks (int t);
     std::vector<std::vector<int>> field_ {9, std::vector<int>(9)};
 };
 

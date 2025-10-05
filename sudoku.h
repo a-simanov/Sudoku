@@ -14,6 +14,11 @@ class Sudoku;
 }
 QT_END_NAMESPACE
 
+inline const int TEXT_ALIGNMENT = 5;
+inline const int EASY_EMPTY_CELLS = 45;
+inline const int MEDIUM_EMPTY_CELLS = 55;
+inline const int HARD_EMPTY_CELLS = 60;
+
 class Sudoku : public QMainWindow
 {
     Q_OBJECT

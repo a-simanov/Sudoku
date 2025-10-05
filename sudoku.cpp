@@ -43,6 +43,8 @@ void Sudoku::SetField (int x) {
                 cell->setText(val);
                 table_->setItem(i, j, cell);
                 cell->setFlags(cell->flags() & ~Qt::ItemIsEditable);
+                cell->setBackground(QBrush(Qt::lightGray));
+                cell->setTextAlignment(TEXT_ALIGNMENT);
             }            
         }        
     }
@@ -61,21 +63,21 @@ void Sudoku::ResetField () {
 void Sudoku::on_pb_set_field_easy_clicked()
 {
     ResetField ();
-    SetField(45);
+    SetField(EASY_EMPTY_CELLS);
 }
 
 
 void Sudoku::on_pb_set_field_medium_clicked()
 {
     ResetField ();
-    SetField(55);
+    SetField(MEDIUM_EMPTY_CELLS);
 }
 
 
 void Sudoku::on_pb_set_field_hard_clicked()
 {
     ResetField ();
-    SetField(60);
+    SetField(HARD_EMPTY_CELLS);
 }
 
 void Sudoku::onCellClicked(int row, int column) {
@@ -84,7 +86,7 @@ void Sudoku::onCellClicked(int row, int column) {
     if (field_.CheckCorrectSquare(row, column, val) || field_.CheckLine(row, column, val)){
         table_->item(row, column)->setBackground(QBrush("red"));
     } else {
-        table_->item(row, column)->setBackground(QBrush(""));
+        table_->item(row, column)->setBackground(QBrush());
     }
 };
 
