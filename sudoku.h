@@ -15,6 +15,10 @@ class Sudoku;
 QT_END_NAMESPACE
 
 inline const int TEXT_ALIGNMENT = 5;
+inline const int MINIMUM_CELL_SIZE = 452;
+inline const int ROW_AND_COL_SIZE = 50;
+inline const int FONT_SIZE = 30;
+
 inline const int EASY_EMPTY_CELLS = 45;
 inline const int MEDIUM_EMPTY_CELLS = 55;
 inline const int HARD_EMPTY_CELLS = 60;
@@ -25,9 +29,7 @@ class Sudoku : public QMainWindow
 
 public:
     Sudoku(QWidget *parent = nullptr);
-    ~Sudoku();
-    void SetField (int x);
-    void CheckField () const;
+    ~Sudoku();    
 private slots:
     void on_pb_set_field_easy_clicked();
 
@@ -42,5 +44,9 @@ private:
     Ui::Sudoku *ui;
     Field field_{};
     QTableWidget* table_ = nullptr;
+
+    void SetFieldParameters();
+    void SetField (int x);
+    void CheckField () const;
 };
 #endif // SUDOKU_H

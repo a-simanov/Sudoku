@@ -5,6 +5,8 @@
 #include <random>
 #include <algorithm>
 
+inline const int NUMBER_CELLS_IN_LINE = 9;
+
 class Field
 {
 public:
@@ -12,6 +14,7 @@ public:
     void GenerateField(int x);
     std::vector<std::vector<int>> GetField () const;
     bool CheckCorrectSquare(int i, int j, int val) const;
+    bool CheckMiniSquare(size_t start_row, size_t finish_row, size_t start_col, size_t finish_col) const;
     void SetNum (int i, int j, int val);
     bool CheckLine (int i, int j, int val) const;
 

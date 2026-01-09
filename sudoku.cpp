@@ -16,25 +16,29 @@ Sudoku::~Sudoku()
     delete ui;
 }
 
-void Sudoku::SetField (int x) {
+void Sudoku::SetFieldParameters() {
     table_ = new QTableWidget(this);
-    table_->setMinimumHeight(452);
-    table_->setMinimumWidth(452);
-    table_->setRowCount(9);
-    table_->setColumnCount(9);
-    table_->setFont(QFont("Arial", 30));
+    table_->setMinimumHeight(MINIMUM_CELL_SIZE);
+    table_->setMinimumWidth(MINIMUM_CELL_SIZE);
+    table_->setRowCount(NUMBER_CELLS_IN_LINE);
+    table_->setColumnCount(NUMBER_CELLS_IN_LINE);
+    table_->setFont(QFont("Arial", FONT_SIZE));
     table_->verticalHeader()->setVisible(false);
     table_->horizontalHeader()->setVisible(false);
     ui->verticalLayout->addWidget(table_, 1, Qt::Alignment(Qt::AlignCenter));
+}
+
+void Sudoku::SetField (int x) {
+    SetFieldParameters();
     field_.GenerateField(x);
     std::vector<std::vector<int>> vec = field_.GetField();
     if (vec.size() == 0) {
         throw std::logic_error("Vector empty");
     }
-    for (size_t i = 0 ; i < 9; ++i) {
-        table_->setRowHeight(i, 50);
-        for (size_t j = 0 ; j < 9; ++j) {
-            table_->setColumnWidth(j, 50);
+    for (size_t i = 0 ; i < NUMBER_CELLS_IN_LINE; ++i) {
+        table_->setRowHeight(i, ROW_AND_COL_SIZE);
+        for (size_t j = 0 ; j < NUMBER_CELLS_IN_LINE; ++j) {
+            table_->setColumnWidth(j, ROW_AND_COL_SIZE);
             if (vec[i][j] == 0) {
                 table_->setItem(i, j, new QTableWidgetItem(0));
             } else {
