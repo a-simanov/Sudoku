@@ -3,7 +3,7 @@
 void Field::GenerateField(int x) {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dist_pos(0,NUMBER_CELLS_IN_LINE);
+    std::uniform_int_distribution<> dist_pos(0,NUMBER_CELLS_IN_LINE - 1);
     std::uniform_int_distribution<> dist_times(5,8);
     std::uniform_int_distribution<> dist_swap(1,3);
     int k = 1;

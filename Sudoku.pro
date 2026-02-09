@@ -11,12 +11,10 @@ CONFIG += c++17
 SOURCES += \
     field.cpp \
     main.cpp \
-    mainwindow.cpp \
     sudoku.cpp
 
 HEADERS += \
     field.h \
-    mainwindow.h \
     sudoku.h
 
 # Default rules for deployment.
