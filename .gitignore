@@ -1,3 +1,4 @@
-/Sudoku.pro
-/Sudoku.pro.user
+*.user
+*.user.*
+*.user*.
 build/
